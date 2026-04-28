@@ -1,0 +1,174 @@
+{
+  "sessions": [
+    {
+      "date": "2026-04-28 13:28:25.314406",
+      "messages": [
+        {
+          "role": "jarvis",
+          "text": "Good afternoon, Varun. I am Jarvis, your personal AI assistant. What can I help you with?",
+          "time": "2026-04-28 13:23:58.775702"
+        },
+        {
+          "role": "user",
+          "text": "hello",
+          "time": "2026-04-28 13:24:13.949597"
+        },
+        {
+          "role": "jarvis",
+          "text": "Hello Varun! I'm here and ready.",
+          "time": "2026-04-28 13:24:14.170577"
+        },
+        {
+          "role": "user",
+          "text": "i can't hear you",
+          "time": "2026-04-28 13:24:24.484919"
+        },
+        {
+          "role": "jarvis",
+          "text": "I'm not sure about that. You can teach me by saying: learn that [phrase] means [response]",
+          "time": "2026-04-28 13:24:24.704650"
+        },
+        {
+          "role": "user",
+          "text": "search open ai",
+          "time": "2026-04-28 13:25:03.703301"
+        },
+        {
+          "role": "jarvis",
+          "text": "Searching for open ai",
+          "time": "2026-04-28 13:25:03.992114"
+        },
+        {
+          "role": "user",
+          "text": "jarvis open whatsapp",
+          "time": "2026-04-28 13:25:14.139814"
+        },
+        {
+          "role": "jarvis",
+          "text": "Opening WhatsApp Web.",
+          "time": "2026-04-28 13:25:14.375473"
+        },
+        {
+          "role": "user",
+          "text": "jarvis play a song",
+          "time": "2026-04-28 13:25:42.014646"
+        },
+        {
+          "role": "jarvis",
+          "text": "Playing jarvis  a song on YouTube.",
+          "time": "2026-04-28 13:25:42.243575"
+        },
+        {
+          "role": "user",
+          "text": "play majbur play a song",
+          "time": "2026-04-28 13:26:23.681002"
+        },
+        {
+          "role": "jarvis",
+          "text": "Playing majbur  a song on YouTube.",
+          "time": "2026-04-28 13:26:23.933553"
+        },
+        {
+          "role": "user",
+          "text": "jarvis",
+          "time": "2026-04-28 13:27:00.647710"
+        },
+        {
+          "role": "jarvis",
+          "text": "I'm not sure about that. You can teach me by saying: learn that [phrase] means [response]",
+          "time": "2026-04-28 13:27:00.868394"
+        },
+        {
+          "role": "user",
+          "text": "flip coin",
+          "time": "2026-04-28 13:27:05.974388"
+        },
+        {
+          "role": "jarvis",
+          "text": "It's Heads!",
+          "time": "2026-04-28 13:27:06.198309"
+        },
+        {
+          "role": "user",
+          "text": "learn",
+          "time": "2026-04-28 13:27:37.771466"
+        },
+        {
+          "role": "jarvis",
+          "text": "I'm not sure about that. You can teach me by saying: learn that [phrase] means [response]",
+          "time": "2026-04-28 13:27:37.998405"
+        },
+        {
+          "role": "user",
+          "text": "24 picture",
+          "time": "2026-04-28 13:28:09.360801"
+        },
+        {
+          "role": "jarvis",
+          "text": "I'm not sure about that. You can teach me by saying: learn that [phrase] means [response]",
+          "time": "2026-04-28 13:28:09.590974"
+        },
+        {
+          "role": "user",
+          "text": "exit",
+          "time": "2026-04-28 13:28:24.830571"
+        },
+        {
+          "role": "jarvis",
+          "text": "Goodbye Varun. Shutting down all systems.",
+          "time": "2026-04-28 13:28:25.057873"
+        }
+      ]
+    },
+    {
+      "date": "2026-04-28 13:48:05.957697",
+      "messages": [
+        {
+          "role": "jarvis",
+          "text": "Good afternoon, Varun. Welcome back. What can I help you with?",
+          "time": "2026-04-28 13:47:01.824108"
+        },
+        {
+          "role": "user",
+          "text": "open youtube",
+          "time": "2026-04-28 13:47:06.959383"
+        },
+        {
+          "role": "jarvis",
+          "text": "Opening YouTube.",
+          "time": "2026-04-28 13:47:07.232626"
+        },
+        {
+          "role": "user",
+          "text": "what's the time",
+          "time": "2026-04-28 13:47:12.208422"
+        },
+        {
+          "role": "jarvis",
+          "text": "It's 01:47 PM",
+          "time": "2026-04-28 13:47:12.411122"
+        },
+        {
+          "role": "user",
+          "text": "weather",
+          "time": "2026-04-28 13:47:34.707715"
+        },
+        {
+          "role": "jarvis",
+          "text": "Opening weather forecast.",
+          "time": "2026-04-28 13:47:34.920855"
+        },
+        {
+          "role": "user",
+          "text": "exit",
+          "time": "2026-04-28 13:48:05.617987"
+        },
+        {
+          "role": "jarvis",
+          "text": "Goodbye Varun. Shutting down all systems.",
+          "time": "2026-04-28 13:48:05.830491"
+        }
+      ]
+    }
+  ]
+}

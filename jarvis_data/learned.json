@@ -1,0 +1,33 @@
+{
+  "patterns": {},
+  "corrections": [],
+  "keywords": {
+    "hello": 1,
+    "i": 1,
+    "can't": 1,
+    "hear": 1,
+    "you": 1,
+    "search": 1,
+    "open": 4,
+    "ai": 1,
+    "jarvis": 3,
+    "whatsapp": 1,
+    "play": 3,
+    "a": 2,
+    "song": 2,
+    "majbur": 1,
+    "flip": 1,
+    "coin": 1,
+    "learn": 1,
+    "24": 1,
+    "picture": 1,
+    "exit": 2,
+    "youtube": 1,
+    "what's": 1,
+    "the": 1,
+    "time": 1,
+    "weather": 1,
+    "chrome": 1
+  },
+  "aliases": {}
+}

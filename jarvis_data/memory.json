@@ -1,0 +1,105 @@
+{
+  "user_name": "Varun",
+  "preferences": {},
+  "facts": {},
+  "command_history": [
+    {
+      "cmd": "hello",
+      "time": "2026-04-28 13:24:14.168925"
+    },
+    {
+      "cmd": "i can't hear you",
+      "time": "2026-04-28 13:24:24.702597"
+    },
+    {
+      "cmd": "search open ai",
+      "time": "2026-04-28 13:25:03.930454"
+    },
+    {
+      "cmd": "jarvis open whatsapp",
+      "time": "2026-04-28 13:25:14.359909"
+    },
+    {
+      "cmd": "jarvis play a song",
+      "time": "2026-04-28 13:25:42.241671"
+    },
+    {
+      "cmd": "play majbur play a song",
+      "time": "2026-04-28 13:26:23.931320"
+    },
+    {
+      "cmd": "jarvis",
+      "time": "2026-04-28 13:27:00.866430"
+    },
+    {
+      "cmd": "flip coin",
+      "time": "2026-04-28 13:27:06.196347"
+    },
+    {
+      "cmd": "learn",
+      "time": "2026-04-28 13:27:37.996590"
+    },
+    {
+      "cmd": "24 picture",
+      "time": "2026-04-28 13:28:09.588992"
+    },
+    {
+      "cmd": "exit",
+      "time": "2026-04-28 13:28:25.056073"
+    },
+    {
+      "cmd": "open youtube",
+      "time": "2026-04-28 13:47:07.171921"
+    },
+    {
+      "cmd": "what's the time",
+      "time": "2026-04-28 13:47:12.408812"
+    },
+    {
+      "cmd": "weather",
+      "time": "2026-04-28 13:47:34.918575"
+    },
+    {
+      "cmd": "exit",
+      "time": "2026-04-28 13:48:05.828281"
+    },
+    {
+      "cmd": "open chrome",
+      "time": "2026-04-28 13:56:46.328431"
+    }
+  ],
+  "command_counts": {
+    "hello": 1,
+    "i": 1,
+    "can't": 1,
+    "hear": 1,
+    "you": 1,
+    "search": 1,
+    "open": 4,
+    "ai": 1,
+    "jarvis": 3,
+    "whatsapp": 1,
+    "play": 3,
+    "a": 2,
+    "song": 2,
+    "majbur": 1,
+    "flip": 1,
+    "coin": 1,
+    "learn": 1,
+    "24": 1,
+    "picture": 1,
+    "exit": 2,
+    "youtube": 1,
+    "what's": 1,
+    "the": 1,
+    "time": 1,
+    "weather": 1,
+    "chrome": 1
+  },
+  "mood_log": [],
+  "session_count": 5,
+  "first_use": "2026-04-28 13:23:53.798501",
+  "last_use": "2026-04-28 13:54:11.906729",
+  "favorite_topics": [],
+  "custom_responses": {}
+}
