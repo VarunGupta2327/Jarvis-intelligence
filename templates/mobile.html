@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>J.A.R.V.I.S — Mobile</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:#080c14;color:#b0e0e6;font-family:'Share Tech Mono',monospace;
+    overflow-x:hidden;min-height:100vh;
+  }
+  /* Top Bar */
+  .topbar{
+    background:linear-gradient(180deg,#0c1424,#080c14);
+    padding:12px 16px;display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid #0e3a4a;
+  }
+  .topbar h1{font-family:'Orbitron',sans-serif;font-size:18px;color:#00e5ff;letter-spacing:3px;}
+  .topbar .time{font-family:'Orbitron',sans-serif;font-size:14px;color:#ff6f00;}
+  /* Reactor */
+  .reactor-wrap{display:flex;justify-content:center;padding:20px 0;}
+  #reactor{width:220px;height:220px;}
+  /* Status */
+  .status-bar{
+    text-align:center;padding:8px;font-size:13px;color:#00e5ff;
+    text-transform:uppercase;letter-spacing:2px;
+  }
+  .status-bar.listening{color:#ff6f00;animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+  /* Panels Grid */
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 12px;}
+  .panel{
+    background:#0c1220;border:1px solid #0e3a4a;border-radius:8px;padding:10px;
+  }
+  .panel-title{
+    font-family:'Orbitron',sans-serif;font-size:8px;color:#ff6f00;
+    letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;
+  }
+  .panel-value{font-size:20px;font-weight:bold;color:#00e5ff;}
+  .panel-sub{font-size:9px;color:#0a4f5c;margin-top:2px;}
+  .gauge-row{display:flex;gap:6px;justify-content:center;}
+  .mini-gauge{text-align:center;}
+  .mini-gauge canvas{display:block;margin:0 auto;}
+  .mini-gauge .lbl{font-size:7px;color:#0a4f5c;margin-top:2px;}
+  /* Progress bars */
+  .proc-item{margin-bottom:6px;}
+  .proc-label{display:flex;justify-content:space-between;font-size:9px;color:#c8dce6;}
+  .proc-bar{height:4px;background:#1a2030;border-radius:2px;margin-top:2px;}
+  .proc-fill{height:100%;border-radius:2px;transition:width 0.5s;}
+  /* Console */
+  .console{
+    margin:8px 12px;background:#060a12;border:1px solid #0e3a4a;
+    border-radius:8px;padding:10px;max-height:150px;overflow-y:auto;
+  }
+  .console-title{font-family:'Orbitron',sans-serif;font-size:9px;color:#ff6f00;margin-bottom:6px;}
+  .console-line{font-size:11px;margin-bottom:3px;line-height:1.4;}
+  .console-line.jarvis{color:#00e5ff;}
+  .console-line.user{color:#ff6f00;}
+  /* Voice Button */
+  .voice-btn-wrap{display:flex;justify-content:center;padding:16px;}
+  .voice-btn{
+    width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;
+    background:radial-gradient(circle,#0a2030,#080c14);color:#00e5ff;
+    font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:all 0.3s;box-shadow:0 0 20px rgba(0,229,255,0.2);
+  }
+  .voice-btn:active,.voice-btn.active{
+    border-color:#ff6f00;color:#ff6f00;
+    box-shadow:0 0 30px rgba(255,111,0,0.4);transform:scale(1.1);
+  }
+  /* Command buttons */
+  .quick-cmds{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 12px 16px;}
+  .qcmd{
+    background:#0c1220;border:1px solid #0e3a4a;border-radius:6px;
+    padding:8px 4px;text-align:center;font-size:8px;color:#0a4f5c;
+    cursor:pointer;transition:all 0.2s;font-family:'Orbitron',sans-serif;
+  }
+  .qcmd:active{background:#1a2a3a;color:#00e5ff;border-color:#00e5ff;}
+  /* Waveform */
+  .waveform{display:flex;justify-content:center;gap:2px;height:30px;align-items:flex-end;padding:0 12px;}
+  .wbar{width:4px;background:#00e5ff;border-radius:2px;transition:height 0.15s;min-height:2px;}
+  /* Bottom nav */
+  .bottomnav{
+    display:flex;justify-content:space-around;padding:10px 0;
+    border-top:1px solid #0e3a4a;background:#0c1220;
+    position:sticky;bottom:0;
+  }
+  .nav-item{text-align:center;font-size:8px;color:#0a4f5c;cursor:pointer;padding:4px 8px;}
+  .nav-item.active{color:#00e5ff;}
+  .nav-icon{font-size:18px;margin-bottom:2px;}
+</style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="topbar">
+    <h1>J.A.R.V.I.S.</h1>
+    <div class="time" id="clock">--:--</div>
+  </div>
+
+  <!-- Reactor -->
+  <div class="reactor-wrap"><canvas id="reactor"></canvas></div>
+
+  <!-- Status -->
+  <div class="status-bar" id="status">STANDBY</div>
+
+  <!-- Waveform -->
+  <div class="waveform" id="waveform"></div>
+
+  <!-- Panels -->
+  <div class="panels">
+    <div class="panel">
+      <div class="panel-title">System</div>
+      <div class="gauge-row" id="gauges"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Voice</div>
+      <div id="voiceStatus" style="font-size:11px;color:#0a4f5c;">Ready</div>
+      <div style="margin-top:6px;">
+        <div class="proc-item"><div class="proc-label"><span>JARVIS</span><span>100%</span></div>
+          <div class="proc-bar"><div class="proc-fill" style="width:100%;background:#00e5ff;"></div></div></div>
+        <div class="proc-item"><div class="proc-label"><span>VOICE</span><span id="voicePct">65%</span></div>
+          <div class="proc-bar"><div class="proc-fill" id="voiceBar" style="width:65%;background:#00c853;"></div></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Network</div>
+      <div class="panel-value" style="font-size:14px;" id="netSpeed">1.2 MB/s</div>
+      <div class="panel-sub">CONNECTED</div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Energy</div>
+      <div class="panel-value" style="font-size:14px;color:#ff6f00;">82%</div>
+      <div class="panel-sub">REACTOR STABLE</div>
+    </div>
+  </div>
+
+  <!-- Quick Commands -->
+  <div class="quick-cmds">
+    <div class="qcmd" onclick="sendCmd('open youtube')">▶ YOUTUBE</div>
+    <div class="qcmd" onclick="sendCmd('open google')">🔍 GOOGLE</div>
+    <div class="qcmd" onclick="sendCmd('screenshot')">📸 SCREEN</div>
+    <div class="qcmd" onclick="sendCmd('volume up')">🔊 VOL+</div>
+    <div class="qcmd" onclick="sendCmd('time')">🕐 TIME</div>
+    <div class="qcmd" onclick="sendCmd('weather')">🌤 WEATHER</div>
+    <div class="qcmd" onclick="sendCmd('joke')">😂 JOKE</div>
+    <div class="qcmd" onclick="sendCmd('system info')">💻 SYSTEM</div>
+  </div>
+
+  <!-- Voice Button -->
+  <div class="voice-btn-wrap">
+    <button class="voice-btn" id="micBtn" onclick="toggleMic()">🎙</button>
+  </div>
+
+  <!-- Console -->
+  <div class="console" id="console">
+    <div class="console-title">JARVIS CONSOLE</div>
+    <div class="console-line jarvis">Systems online. Awaiting commands.</div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottomnav">
+    <div class="nav-item active"><div class="nav-icon">🏠</div>HOME</div>
+    <div class="nav-item" onclick="sendCmd('open chrome')"><div class="nav-icon">🌐</div>WEB</div>
+    <div class="nav-item" onclick="sendCmd('open notepad')"><div class="nav-icon">📝</div>APPS</div>
+    <div class="nav-item" onclick="sendCmd('help')"><div class="nav-icon">⚙️</div>MORE</div>
+  </div>
+
+<script>
+// Clock
+function updateClock(){
+  const now=new Date();
+  document.getElementById('clock').textContent=now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+}
+setInterval(updateClock,1000);updateClock();
+
+// Waveform
+const wf=document.getElementById('waveform');
+for(let i=0;i<30;i++){const b=document.createElement('div');b.className='wbar';b.style.height='2px';wf.appendChild(b);}
+let listening=false;
+function animateWave(){
+  const bars=wf.children;
+  for(let i=0;i<bars.length;i++){
+    bars[i].style.height=listening?(Math.random()*25+3)+'px':'2px';
+    bars[i].style.background=listening?'#00e5ff':'#1a2a35';
+  }
+  requestAnimationFrame(animateWave);
+}
+animateWave();
+
+// Reactor canvas
+const rc=document.getElementById('reactor');
+const ctx=rc.getContext('2d');
+rc.width=220;rc.height=220;
+let angle=0;
+function drawReactor(){
+  ctx.clearRect(0,0,220,220);
+  const cx=110,cy=110;
+  // Outer arcs
+  for(let i=0;i<8;i++){
+    ctx.beginPath();
+    ctx.arc(cx,cy,95,((i*45+angle)*Math.PI/180),((i*45+angle+30)*Math.PI/180));
+    ctx.strokeStyle=i%2?'#0a4f5c':'#00e5ff';ctx.lineWidth=2;ctx.stroke();
+  }
+  for(let i=0;i<6;i++){
+    ctx.beginPath();
+    ctx.arc(cx,cy,75,((i*60-angle*1.3)*Math.PI/180),((i*60-angle*1.3+40)*Math.PI/180));
+    ctx.strokeStyle='#00e5ff';ctx.lineWidth=1.5;ctx.stroke();
+  }
+  for(let i=0;i<4;i++){
+    ctx.beginPath();
+    ctx.arc(cx,cy,55,((i*90+angle*0.8)*Math.PI/180),((i*90+angle*0.8+55)*Math.PI/180));
+    ctx.strokeStyle='#0a4f5c';ctx.lineWidth=1;ctx.stroke();
+  }
+  // Pulse ring
+  const pr=40+Math.sin(angle*0.05)*5;
+  ctx.beginPath();ctx.arc(cx,cy,pr,0,Math.PI*2);
+  ctx.strokeStyle='#ff6f00';ctx.lineWidth=2.5;ctx.stroke();
+  // Core
+  ctx.beginPath();ctx.arc(cx,cy,18,0,Math.PI*2);
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2;ctx.stroke();
+  // Glow
+  const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,15);
+  grd.addColorStop(0,'rgba(0,229,255,0.6)');grd.addColorStop(1,'rgba(0,229,255,0)');
+  ctx.fillStyle=grd;ctx.beginPath();ctx.arc(cx,cy,15,0,Math.PI*2);ctx.fill();
+  // Scan lines
+  for(let i=0;i<6;i++){
+    const a=(angle*2+i*60)*Math.PI/180;
+    ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*22,cy+Math.sin(a)*22);
+    ctx.lineTo(cx+Math.cos(a)*52,cy+Math.sin(a)*52);
+    ctx.strokeStyle='#0a4f5c';ctx.lineWidth=1;ctx.stroke();
+  }
+  // Status text
+  ctx.font='11px "Share Tech Mono"';ctx.fillStyle=listening?'#ff6f00':'#00e5ff';
+  ctx.textAlign='center';ctx.fillText(document.getElementById('status').textContent,cx,cy+3);
+  angle+=1.2;
+  requestAnimationFrame(drawReactor);
+}
+drawReactor();
+
+// Commands
+function sendCmd(cmd){
+  addLog('YOU',cmd,'user');
+  document.getElementById('status').textContent='PROCESSING...';
+  fetch('/cmd',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({command:cmd})})
+    .then(r=>r.json()).then(d=>{
+      addLog('JARVIS',d.response,'jarvis');
+      document.getElementById('status').textContent='STANDBY';
+    }).catch(()=>{
+      addLog('JARVIS','Connection error.','jarvis');
+      document.getElementById('status').textContent='OFFLINE';
+    });
+}
+function addLog(role,text,cls){
+  const c=document.getElementById('console');
+  const d=document.createElement('div');
+  d.className='console-line '+cls;
+  const t=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  d.textContent=`[${t}] ${role}: ${text}`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+// Mic toggle (visual only on mobile - commands go through quick buttons or text)
+function toggleMic(){
+  listening=!listening;
+  const btn=document.getElementById('micBtn');
+  const st=document.getElementById('status');
+  btn.classList.toggle('active',listening);
+  st.textContent=listening?'LISTENING...':'STANDBY';
+  st.classList.toggle('listening',listening);
+  document.getElementById('voiceStatus').textContent=listening?'Listening...':'Ready';
+  if(listening) setTimeout(()=>{listening=false;btn.classList.remove('active');
+    st.textContent='STANDBY';st.classList.remove('listening');
+    document.getElementById('voiceStatus').textContent='Ready';},5000);
+}
+// Animate network speed
+setInterval(()=>{
+  document.getElementById('netSpeed').textContent=(Math.random()*3+0.5).toFixed(1)+' MB/s';
+  document.getElementById('voicePct').textContent=Math.floor(50+Math.random()*30)+'%';
+  document.getElementById('voiceBar').style.width=Math.floor(50+Math.random()*30)+'%';
+},2000);
+// Poll for updates
+setInterval(()=>{
+  fetch('/status').then(r=>r.json()).then(d=>{
+    if(d.last_response){addLog('JARVIS',d.last_response,'jarvis');}
+  }).catch(()=>{});
+},3000);
+</script>
+</body>
+</html>
